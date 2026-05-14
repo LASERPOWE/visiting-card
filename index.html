@@ -3,139 +3,154 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Business Card Extractor</title>
+  <title>Card Desk</title>
   <style>
     :root {
-      --bg: #f4efe6;
-      --panel: rgba(255, 252, 247, 0.92);
-      --panel-strong: #fffaf2;
-      --text: #1e1a16;
-      --muted: #746554;
-      --line: rgba(67, 48, 28, 0.14);
-      --brand: #155e63;
-      --brand-2: #c46d1a;
-      --brand-soft: rgba(21, 94, 99, 0.12);
+      --bg: #f3efe8;
+      --paper: #fffdf9;
+      --paper-2: #faf5ee;
+      --ink: #221d18;
+      --muted: #736558;
+      --line: #e4d8cb;
+      --brand: #0f5d66;
+      --brand-deep: #08373d;
+      --accent: #ba6b1d;
       --danger: #b42318;
-      --shadow: 0 22px 55px rgba(55, 37, 18, 0.12);
+      --good: #147a49;
+      --shadow: 0 16px 40px rgba(52, 35, 20, 0.10);
       --radius: 24px;
-      --radius-sm: 16px;
       --mono: "Consolas", "SFMono-Regular", monospace;
       --sans: "Segoe UI", "Trebuchet MS", Verdana, sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       min-height: 100vh;
       font-family: var(--sans);
-      color: var(--text);
+      color: var(--ink);
       background:
-        radial-gradient(circle at top left, rgba(196, 109, 26, 0.18), transparent 24%),
-        radial-gradient(circle at right 20%, rgba(21, 94, 99, 0.12), transparent 25%),
-        linear-gradient(145deg, #f8f3ec 0%, #efe3d4 45%, #f7f0e6 100%);
+        radial-gradient(circle at top left, rgba(186, 107, 29, 0.12), transparent 26%),
+        radial-gradient(circle at right 18%, rgba(15, 93, 102, 0.11), transparent 24%),
+        linear-gradient(145deg, #f8f4ed 0%, #efe5d8 48%, #f7f2ea 100%);
     }
 
-    .shell {
-      width: min(1180px, calc(100% - 32px));
-      margin: 24px auto 48px;
+    .page {
+      width: min(1320px, calc(100% - 28px));
+      margin: 20px auto 40px;
     }
 
     .hero {
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(135deg, rgba(255, 250, 242, 0.95), rgba(248, 238, 225, 0.92));
-      border: 1px solid rgba(87, 62, 38, 0.08);
+      background: linear-gradient(135deg, rgba(255, 252, 247, 0.95), rgba(247, 240, 230, 0.94));
+      border: 1px solid rgba(94, 68, 43, 0.10);
       border-radius: 30px;
       box-shadow: var(--shadow);
       padding: 28px;
+      position: relative;
+      overflow: hidden;
     }
 
     .hero::after {
       content: "";
       position: absolute;
-      inset: auto -30px -40px auto;
-      width: 220px;
-      height: 220px;
+      width: 260px;
+      height: 260px;
+      right: -40px;
+      bottom: -60px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(196, 109, 26, 0.22), transparent 68%);
+      background: radial-gradient(circle, rgba(15, 93, 102, 0.16), transparent 70%);
       pointer-events: none;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.3fr 0.9fr;
+      grid-template-columns: 1.4fr 0.8fr;
       gap: 20px;
-      align-items: center;
+      align-items: end;
     }
 
     .eyebrow {
       display: inline-flex;
-      padding: 6px 12px;
+      padding: 7px 12px;
       border-radius: 999px;
-      background: var(--brand-soft);
+      background: rgba(15, 93, 102, 0.10);
       color: var(--brand);
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
       font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
 
     h1 {
-      font-size: clamp(2rem, 4vw, 4rem);
-      line-height: 0.96;
-      margin: 16px 0 14px;
-      letter-spacing: -0.04em;
+      margin: 14px 0 12px;
+      font-size: clamp(2.2rem, 5vw, 4.6rem);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
     }
 
-    .lead {
-      margin: 0;
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.7;
-      max-width: 720px;
-    }
-
-    .hero-card {
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid rgba(87, 62, 38, 0.08);
-      border-radius: 24px;
-      padding: 22px;
-      backdrop-filter: blur(8px);
-    }
-
-    .hero-card h2,
-    .panel h2 {
-      margin: 0 0 12px;
-      font-size: 1rem;
-      letter-spacing: 0.02em;
-    }
-
-    .hero-card p,
+    .lead,
     .small {
       margin: 0;
       color: var(--muted);
-      line-height: 1.6;
-      font-size: 0.95rem;
+      line-height: 1.7;
     }
 
-    .grid {
+    .hero-note {
+      border: 1px solid rgba(94, 68, 43, 0.10);
+      background: rgba(255, 255, 255, 0.76);
+      border-radius: 22px;
+      padding: 18px;
+    }
+
+    .layout {
       display: grid;
-      grid-template-columns: 360px 1fr;
+      grid-template-columns: 390px 1fr;
       gap: 20px;
       margin-top: 20px;
     }
 
     .panel {
-      background: var(--panel);
-      border: 1px solid rgba(87, 62, 38, 0.08);
+      background: rgba(255, 252, 247, 0.92);
+      border: 1px solid rgba(94, 68, 43, 0.10);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 22px;
       backdrop-filter: blur(8px);
     }
+
+    .panel h2 {
+      margin: 0 0 14px;
+      font-size: 1.02rem;
+      letter-spacing: 0.01em;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      border: 1px solid rgba(94, 68, 43, 0.10);
+      background: rgba(255, 255, 255, 0.82);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 11px 16px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(8, 55, 61, 0.18);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
 
     .field {
       margin-bottom: 16px;
@@ -152,39 +167,39 @@
     .field textarea,
     .field select {
       width: 100%;
+      background: var(--paper);
+      color: var(--ink);
       border: 1px solid var(--line);
-      background: var(--panel-strong);
       border-radius: 14px;
       padding: 13px 14px;
-      color: var(--text);
       font: inherit;
       outline: none;
       transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
     }
 
-    .field input:focus,
-    .field textarea:focus,
-    .field select:focus {
-      border-color: rgba(21, 94, 99, 0.45);
-      box-shadow: 0 0 0 5px rgba(21, 94, 99, 0.08);
-      transform: translateY(-1px);
-    }
-
-    textarea {
-      min-height: 110px;
+    .field textarea {
+      min-height: 88px;
       resize: vertical;
     }
 
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: rgba(15, 93, 102, 0.42);
+      box-shadow: 0 0 0 5px rgba(15, 93, 102, 0.08);
+      transform: translateY(-1px);
+    }
+
     .dropzone {
-      border: 1.5px dashed rgba(21, 94, 99, 0.35);
+      border: 1.5px dashed rgba(15, 93, 102, 0.32);
       border-radius: 18px;
-      padding: 18px;
-      background: linear-gradient(180deg, rgba(21, 94, 99, 0.06), rgba(255, 255, 255, 0.55));
+      padding: 16px;
+      background: linear-gradient(180deg, rgba(15, 93, 102, 0.05), rgba(255, 255, 255, 0.7));
     }
 
     .dropzone.drag {
-      border-color: var(--brand-2);
-      background: linear-gradient(180deg, rgba(196, 109, 26, 0.1), rgba(255, 255, 255, 0.8));
+      border-color: var(--accent);
+      background: linear-gradient(180deg, rgba(186, 107, 29, 0.08), rgba(255, 255, 255, 0.8));
     }
 
     .actions {
@@ -201,56 +216,28 @@
       font: inherit;
       font-weight: 700;
       cursor: pointer;
-      transition: transform 0.16s ease, opacity 0.16s ease, box-shadow 0.16s ease;
+      transition: transform 0.16s ease, opacity 0.16s ease;
     }
 
-    button:hover {
-      transform: translateY(-1px);
-    }
-
-    button:disabled {
-      cursor: not-allowed;
-      opacity: 0.55;
-      transform: none;
-    }
+    button:hover { transform: translateY(-1px); }
+    button:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
 
     .primary {
-      background: linear-gradient(135deg, var(--brand), #0a393d);
-      color: #fff;
-      box-shadow: 0 10px 22px rgba(10, 57, 61, 0.22);
+      background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+      color: white;
     }
 
     .secondary {
-      background: rgba(255, 255, 255, 0.82);
-      color: var(--text);
-      border: 1px solid rgba(87, 62, 38, 0.08);
+      background: rgba(255, 255, 255, 0.84);
+      color: var(--ink);
+      border: 1px solid rgba(94, 68, 43, 0.10);
     }
 
-    .toolbar {
+    .status-bar {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 16px;
-    }
-
-    .tabs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 18px;
-      flex-wrap: wrap;
-    }
-
-    .tab-btn {
-      background: rgba(255, 255, 255, 0.82);
-      color: var(--muted);
-      border: 1px solid rgba(87, 62, 38, 0.08);
-      box-shadow: none;
-    }
-
-    .tab-btn.active {
-      background: linear-gradient(135deg, var(--brand), #0a393d);
-      color: #fff;
-      box-shadow: 0 10px 22px rgba(10, 57, 61, 0.16);
     }
 
     .pill {
@@ -259,183 +246,198 @@
       gap: 8px;
       padding: 9px 12px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.75);
-      border: 1px solid rgba(87, 62, 38, 0.08);
+      background: rgba(255, 255, 255, 0.80);
+      border: 1px solid rgba(94, 68, 43, 0.10);
       color: var(--muted);
       font-size: 0.9rem;
     }
 
-    .status {
+    .notice {
+      display: none;
       margin: 0 0 16px;
       padding: 14px 16px;
       border-radius: 16px;
-      background: rgba(21, 94, 99, 0.08);
+      background: rgba(15, 93, 102, 0.08);
       color: var(--brand);
-      display: none;
     }
 
-    .status.error {
+    .notice.show { display: block; }
+    .notice.error {
       display: block;
       background: rgba(180, 35, 24, 0.08);
       color: var(--danger);
     }
 
-    .status.show {
-      display: block;
-    }
-
-    .results-grid {
+    .result-stack {
       display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 20px;
+      grid-template-columns: 300px 1fr;
+      gap: 18px;
       align-items: start;
     }
 
     .preview-list {
       display: grid;
       gap: 14px;
-      max-height: 960px;
+      max-height: 950px;
       overflow: auto;
-      padding-right: 6px;
+      padding-right: 4px;
     }
 
-    .preview-card {
-      border-radius: 20px;
+    .card-thumb {
       overflow: hidden;
-      border: 1px solid rgba(87, 62, 38, 0.08);
-      background: white;
-      box-shadow: 0 8px 20px rgba(45, 30, 17, 0.08);
+      border-radius: 18px;
+      border: 1px solid rgba(94, 68, 43, 0.10);
+      background: #fff;
+      box-shadow: 0 8px 20px rgba(45, 30, 17, 0.07);
     }
 
-    .preview-card img {
+    .card-thumb img {
       width: 100%;
       display: block;
-      background: #f3ede4;
       aspect-ratio: 4 / 3;
       object-fit: cover;
+      background: #efe7da;
     }
 
-    .preview-meta {
+    .card-meta {
       padding: 12px 14px 14px;
     }
 
-    .preview-meta strong,
-    .table-wrap strong {
+    .card-meta strong {
       display: block;
-      font-size: 0.95rem;
       margin-bottom: 4px;
+      font-size: 0.95rem;
     }
 
-    .preview-meta span {
+    .card-meta span {
       display: block;
       color: var(--muted);
-      font-size: 0.85rem;
+      font-size: 0.86rem;
       line-height: 1.5;
       word-break: break-word;
     }
 
+    .table-shell {
+      border: 1px solid rgba(94, 68, 43, 0.10);
+      border-radius: 20px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .table-headbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--paper-2);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .table-headbar strong {
+      font-size: 0.98rem;
+    }
+
+    .table-headbar .small {
+      font-size: 0.88rem;
+    }
+
     .table-wrap {
       overflow: auto;
-      border-radius: 20px;
-      border: 1px solid rgba(87, 62, 38, 0.08);
-      background: rgba(255, 255, 255, 0.9);
+      max-height: 860px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 980px;
+      min-width: 1460px;
     }
 
     thead th {
       position: sticky;
       top: 0;
-      background: #f3eadf;
-      color: #3f3125;
+      z-index: 1;
       text-align: left;
-      padding: 14px 12px;
-      font-size: 0.88rem;
-      letter-spacing: 0.03em;
+      padding: 13px 12px;
+      font-size: 0.84rem;
       text-transform: uppercase;
-      border-bottom: 1px solid rgba(87, 62, 38, 0.08);
+      letter-spacing: 0.04em;
+      color: #4a3a2d;
+      background: #f5ece2;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
     }
 
     tbody td {
-      padding: 14px 12px;
-      border-bottom: 1px solid rgba(87, 62, 38, 0.08);
+      padding: 13px 12px;
+      border-bottom: 1px solid #f0e6da;
+      font-size: 0.92rem;
       vertical-align: top;
-      font-size: 0.94rem;
       line-height: 1.5;
+      background: rgba(255, 255, 255, 0.94);
     }
 
-    tbody tr:hover {
-      background: rgba(21, 94, 99, 0.04);
+    tbody tr:hover td {
+      background: rgba(15, 93, 102, 0.04);
     }
 
     .mono {
       font-family: var(--mono);
-      font-size: 0.84rem;
+      font-size: 0.83rem;
     }
 
     .tag {
       display: inline-flex;
       padding: 5px 8px;
       border-radius: 999px;
-      background: rgba(196, 109, 26, 0.1);
-      color: #8b4f11;
-      font-size: 0.8rem;
+      background: rgba(20, 122, 73, 0.10);
+      color: var(--good);
+      font-size: 0.78rem;
       font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .tag.low {
+      background: rgba(186, 107, 29, 0.12);
+      color: #8b4f11;
     }
 
     .empty {
-      padding: 32px;
+      padding: 36px;
+      border: 1px dashed rgba(94, 68, 43, 0.18);
+      border-radius: 18px;
       text-align: center;
       color: var(--muted);
-      border: 1px dashed rgba(87, 62, 38, 0.16);
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .code-box {
+      border: 1px solid rgba(94, 68, 43, 0.10);
+      background: rgba(255, 255, 255, 0.85);
       border-radius: 18px;
-      background: rgba(255, 255, 255, 0.7);
+      padding: 15px;
+      margin-top: 14px;
     }
 
-    .footer-note {
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: 0.86rem;
-      line-height: 1.6;
-    }
-
-    .tab-panel {
-      display: none;
-    }
-
-    .tab-panel.active {
-      display: block;
-    }
-
-    .response-box {
-      border: 1px solid rgba(87, 62, 38, 0.08);
-      background: rgba(255, 255, 255, 0.86);
-      border-radius: 18px;
-      padding: 16px;
-      margin-top: 16px;
-    }
-
-    .response-box pre {
+    .code-box pre {
       margin: 0;
       white-space: pre-wrap;
       word-break: break-word;
+      color: #2c241c;
       font-family: var(--mono);
       font-size: 0.84rem;
       line-height: 1.6;
-      color: #2d241c;
     }
 
-    @media (max-width: 980px) {
+    @media (max-width: 1080px) {
       .hero-grid,
-      .grid,
-      .results-grid {
+      .layout,
+      .result-stack {
         grid-template-columns: 1fr;
       }
+    }
 
+    @media (max-width: 680px) {
       .actions {
         grid-template-columns: 1fr;
       }
@@ -443,41 +445,40 @@
   </style>
 </head>
 <body>
-  <div class="shell">
+  <div class="page">
     <section class="hero">
       <div class="hero-grid">
         <div>
-          <span class="eyebrow">Single File Static App</span>
-          <h1>Business Card to Structured Contact Table</h1>
+          <span class="eyebrow">Static Page + Google Apps Script</span>
+          <h1>Upload Card. Save to Drive. Read from Google Sheet.</h1>
           <p class="lead">
-            Visiting card upload karo, OpenAI se fields extract karvao, aur clean HTML table me saari details dekho.
-            Yeh page GitHub Pages jaisi static hosting par chal sakta hai, kyunki pure frontend me hi request bheji ja rahi hai.
+            Yeh page static website ki tarah chalega. Frontend card image upload karega, OpenAI se data nikaalega,
+            webhook ke through card Google Drive me save hoga, row Google Sheet me append hogi, aur table hamesha Google Sheet se hi load hoga.
           </p>
         </div>
-        <div class="hero-card">
-          <h2>Expected fields</h2>
-          <p>
-            Name, designation, company, mobile, phone, fax, email, website, office address, city, source file, confidence note,
-            aur raw extracted summary. Rotated card images bhi handle karne ke liye prompt tuned hai.
+        <div class="hero-note">
+          <h2>Flow</h2>
+          <p class="small">
+            `Upload Card` tab se images bhejo. `View Data` tab me live sheet table dekho. Source of truth local memory nahi, Google Sheet hai.
           </p>
         </div>
       </div>
     </section>
 
-    <main class="grid">
+    <main class="layout">
       <section class="panel">
         <div class="tabs">
-          <button class="tab-btn active" id="tabUploadBtn" type="button">Upload Card</button>
-          <button class="tab-btn" id="tabDataBtn" type="button">View Data</button>
+          <button class="tab active" id="uploadTabBtn" type="button">Upload Card</button>
+          <button class="tab" id="viewTabBtn" type="button">View Data</button>
         </div>
 
-        <div class="tab-panel active" id="uploadPanel">
-          <h2>Upload + OpenAI Setup</h2>
+        <div class="tab-panel active" id="uploadTab">
+          <h2>Upload + Save Setup</h2>
 
           <div class="field">
             <label for="apiKey">OpenAI API Key</label>
             <input id="apiKey" type="password" placeholder="sk-..." />
-            <p class="small">Agar aap key hardcode karna chahte ho to script me `DEFAULT_OPENAI_KEY` set kar sakte ho.</p>
+            <p class="small">Static page demo hai, isliye browser se direct API call hogi.</p>
           </div>
 
           <div class="field">
@@ -490,74 +491,72 @@
           </div>
 
           <div class="field">
-            <label for="fileInput">Business card images</label>
+            <label for="appsScriptUrl">Google Apps Script Web App URL</label>
+            <input id="appsScriptUrl" type="text" placeholder="https://script.google.com/macros/s/.../exec" />
+            <p class="small">Isi webhook se card Drive me save hoga aur row Sheet me append/list hogi.</p>
+          </div>
+
+          <div class="field">
+            <label for="driveFolderId">Drive Folder ID</label>
+            <input id="driveFolderId" type="text" placeholder="Google Drive folder ID" />
+          </div>
+
+          <div class="field">
+            <label for="sheetName">Google Sheet Tab Name</label>
+            <input id="sheetName" type="text" placeholder="Sheet1" value="Sheet1" />
+          </div>
+
+          <div class="field">
+            <label for="fileInput">Business Card Images</label>
             <div class="dropzone" id="dropzone">
               <input id="fileInput" type="file" accept="image/*" multiple />
-              <p class="small" style="margin-top: 10px;">
-                Multiple card images select ya drag-drop kar sakte ho.
-              </p>
+              <p class="small" style="margin-top: 10px;">Multiple card images select ya drag-drop kar sakte ho.</p>
             </div>
           </div>
 
           <div class="field">
-            <label for="driveLinks">Public image links / Google Drive direct links</label>
-            <textarea id="driveLinks" placeholder="Har line par ek image URL paste karein. Public direct image link ho to best."></textarea>
-            <p class="small">
-              Agar Google Drive image use karni hai to best result ke liye direct image/open link ya publicly accessible file link use karein.
-            </p>
-          </div>
-
-          <div class="field">
-            <label for="driveWebhook">Google Drive Save Webhook URL</label>
-            <input id="driveWebhook" type="text" placeholder="https://script.google.com/macros/s/.../exec" />
-            <p class="small">Optional. Agar Google Apps Script webhook doge to uploaded card image ka save request bhej diya jayega.</p>
-          </div>
-
-          <div class="field">
-            <label for="sheetWebhook">Google Sheet Save Webhook URL</label>
-            <input id="sheetWebhook" type="text" placeholder="https://script.google.com/macros/s/.../exec" />
-            <p class="small">Optional. Agar Google Apps Script webhook doge to extracted row Google Sheet me save request bhej diya jayega.</p>
+            <label for="driveLinks">Public Card Image Links</label>
+            <textarea id="driveLinks" placeholder="Har line par ek public image link."></textarea>
+            <p class="small">Public link hua to image ko directly read karke extract kiya jayega.</p>
           </div>
 
           <div class="actions">
-            <button class="primary" id="extractBtn">Extract Data</button>
-            <button class="secondary" id="clearBtn">Clear All</button>
+            <button class="primary" id="extractBtn">Extract + Save</button>
+            <button class="secondary" id="refreshBtn">Refresh Sheet</button>
           </div>
 
-          <div class="response-box">
-            <strong>Expected AI Response</strong>
-            <pre id="sampleResponseBox"></pre>
+          <div class="actions">
+            <button class="secondary" id="clearBtn">Clear Local Selection</button>
+            <button class="secondary" id="viewTableBtn">Open View Data</button>
           </div>
 
-          <p class="footer-note">
-            Note: Browser-based OpenAI key public ho jayegi. Drive aur Google Sheet me direct save ke liye Google side ka webhook/OAuth setup chahiye hota hai.
-          </p>
+          <div class="code-box">
+            <strong>Expected Extracted JSON</strong>
+            <pre id="sampleJsonBox"></pre>
+          </div>
         </div>
 
-        <div class="tab-panel" id="dataPanel">
-          <h2>View Data Layout</h2>
-          <p class="small">
-            Yeh panel exact spreadsheet-style structure dikhata hai. Har card ek row hoga aur fixed columns me data aayega.
-          </p>
-          <div class="response-box">
-            <strong>Current Row Preview</strong>
-            <pre id="currentResponseBox"></pre>
+        <div class="tab-panel" id="viewTab">
+          <h2>Sheet Row Preview</h2>
+          <p class="small">Jo row Google Sheet me save hogi, yahan uska structure dikh raha hai.</p>
+          <div class="code-box">
+            <pre id="rowPreviewBox"></pre>
           </div>
         </div>
       </section>
 
       <section class="panel">
-        <div class="toolbar">
-          <span class="pill" id="countPill">Cards: 0</span>
-          <span class="pill" id="successPill">Extracted: 0</span>
-          <span class="pill" id="timePill">Status: idle</span>
+        <div class="status-bar">
+          <span class="pill" id="cardsPill">Cards: 0</span>
+          <span class="pill" id="savedPill">Sheet Rows: 0</span>
+          <span class="pill" id="phasePill">Status: idle</span>
         </div>
 
-        <div id="statusBox" class="status"></div>
+        <div class="notice" id="noticeBox"></div>
 
-        <div id="resultsArea">
+        <div id="mainArea">
           <div class="empty">
-            Upload cards and click <strong>Extract Data</strong>. Extracted contacts yahan structured table me dikhengi.
+            Google Apps Script URL dalo, cards upload karo, phir `Extract + Save` se Drive + Sheet workflow chalao.
           </div>
         </div>
       </section>
@@ -567,29 +566,27 @@
   <script>
     const DEFAULT_OPENAI_KEY = "";
 
-    const fileInput = document.getElementById("fileInput");
-    const driveLinks = document.getElementById("driveLinks");
-    const apiKeyInput = document.getElementById("apiKey");
-    const modelSelect = document.getElementById("model");
-    const extractBtn = document.getElementById("extractBtn");
-    const clearBtn = document.getElementById("clearBtn");
-    const resultsArea = document.getElementById("resultsArea");
-    const statusBox = document.getElementById("statusBox");
-    const countPill = document.getElementById("countPill");
-    const successPill = document.getElementById("successPill");
-    const timePill = document.getElementById("timePill");
-    const dropzone = document.getElementById("dropzone");
-    const driveWebhookInput = document.getElementById("driveWebhook");
-    const sheetWebhookInput = document.getElementById("sheetWebhook");
-    const tabUploadBtn = document.getElementById("tabUploadBtn");
-    const tabDataBtn = document.getElementById("tabDataBtn");
-    const uploadPanel = document.getElementById("uploadPanel");
-    const dataPanel = document.getElementById("dataPanel");
-    const sampleResponseBox = document.getElementById("sampleResponseBox");
-    const currentResponseBox = document.getElementById("currentResponseBox");
-
-    let selectedFiles = [];
-    let extractedRows = [];
+    const SHEET_HEADERS = [
+      "created_at",
+      "source_file",
+      "drive_file_url",
+      "full_name",
+      "designation",
+      "company",
+      "department",
+      "mobile",
+      "office_phones",
+      "fax",
+      "emails",
+      "website",
+      "address",
+      "city",
+      "pin_code",
+      "country",
+      "confidence",
+      "notes",
+      "raw_summary"
+    ];
 
     const SAMPLE_RESPONSE = {
       full_name: "Shaurin Shah",
@@ -605,18 +602,50 @@
       city: "Mumbai",
       pin_code: "400021",
       country: "India",
-      notes: "",
       confidence: "high",
+      notes: "",
       raw_summary: "Shaurin Shah, Enam Holdings Pvt. Ltd., Express Towers, 11th Floor, Nariman Point, Mumbai 400021, India."
     };
 
-    tabUploadBtn.addEventListener("click", () => setTab("upload"));
-    tabDataBtn.addEventListener("click", () => setTab("data"));
+    const fileInput = document.getElementById("fileInput");
+    const driveLinks = document.getElementById("driveLinks");
+    const apiKeyInput = document.getElementById("apiKey");
+    const modelSelect = document.getElementById("model");
+    const appsScriptUrlInput = document.getElementById("appsScriptUrl");
+    const driveFolderIdInput = document.getElementById("driveFolderId");
+    const sheetNameInput = document.getElementById("sheetName");
+    const extractBtn = document.getElementById("extractBtn");
+    const refreshBtn = document.getElementById("refreshBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const viewTableBtn = document.getElementById("viewTableBtn");
+    const uploadTabBtn = document.getElementById("uploadTabBtn");
+    const viewTabBtn = document.getElementById("viewTabBtn");
+    const uploadTab = document.getElementById("uploadTab");
+    const viewTab = document.getElementById("viewTab");
+    const cardsPill = document.getElementById("cardsPill");
+    const savedPill = document.getElementById("savedPill");
+    const phasePill = document.getElementById("phasePill");
+    const noticeBox = document.getElementById("noticeBox");
+    const dropzone = document.getElementById("dropzone");
+    const mainArea = document.getElementById("mainArea");
+    const sampleJsonBox = document.getElementById("sampleJsonBox");
+    const rowPreviewBox = document.getElementById("rowPreviewBox");
+
+    let selectedFiles = [];
+    let localCards = [];
+    let sheetRows = [];
+
+    uploadTabBtn.addEventListener("click", () => setTab("upload"));
+    viewTabBtn.addEventListener("click", () => setTab("view"));
+    viewTableBtn.addEventListener("click", () => setTab("view"));
+    extractBtn.addEventListener("click", handleExtractAndSave);
+    refreshBtn.addEventListener("click", refreshSheetRows);
+    clearBtn.addEventListener("click", clearSelection);
 
     fileInput.addEventListener("change", () => {
       selectedFiles = Array.from(fileInput.files || []);
-      refreshCounts();
-      renderIdlePreview();
+      updateStats();
+      renderWorkspace();
     });
 
     ["dragenter", "dragover"].forEach((eventName) => {
@@ -640,39 +669,35 @@
       const dt = new DataTransfer();
       files.forEach((file) => dt.items.add(file));
       fileInput.files = dt.files;
-      refreshCounts();
-      renderIdlePreview();
+      updateStats();
+      renderWorkspace();
     });
 
-    extractBtn.addEventListener("click", handleExtract);
-    clearBtn.addEventListener("click", clearAll);
-
-    function setStatus(message, type = "info") {
-      statusBox.textContent = message;
-      statusBox.className = "status show" + (type === "error" ? " error" : "");
+    function setTab(tab) {
+      const isUpload = tab === "upload";
+      uploadTabBtn.classList.toggle("active", isUpload);
+      viewTabBtn.classList.toggle("active", !isUpload);
+      uploadTab.classList.toggle("active", isUpload);
+      viewTab.classList.toggle("active", !isUpload);
     }
 
-    function clearStatus() {
-      statusBox.textContent = "";
-      statusBox.className = "status";
-    }
-
-    function refreshCounts() {
-      const urlCount = parseLinks(driveLinks.value).length;
-      countPill.textContent = `Cards: ${selectedFiles.length + urlCount}`;
-      successPill.textContent = `Extracted: ${extractedRows.length}`;
+    function updateStats() {
+      cardsPill.textContent = `Cards: ${selectedFiles.length + parseLinks(driveLinks.value).length}`;
+      savedPill.textContent = `Sheet Rows: ${sheetRows.length}`;
     }
 
     function setPhase(text) {
-      timePill.textContent = `Status: ${text}`;
+      phasePill.textContent = `Status: ${text}`;
     }
 
-    function setTab(tab) {
-      const uploadActive = tab === "upload";
-      tabUploadBtn.classList.toggle("active", uploadActive);
-      tabDataBtn.classList.toggle("active", !uploadActive);
-      uploadPanel.classList.toggle("active", uploadActive);
-      dataPanel.classList.toggle("active", !uploadActive);
+    function showNotice(message, type = "info") {
+      noticeBox.textContent = message;
+      noticeBox.className = "notice show" + (type === "error" ? " error" : "");
+    }
+
+    function clearNotice() {
+      noticeBox.textContent = "";
+      noticeBox.className = "notice";
     }
 
     function parseLinks(text) {
@@ -682,132 +707,175 @@
         .filter(Boolean);
     }
 
-    async function handleExtract() {
+    async function handleExtractAndSave() {
       const apiKey = apiKeyInput.value.trim() || DEFAULT_OPENAI_KEY.trim();
-      const model = modelSelect.value;
-      const urls = parseLinks(driveLinks.value);
+      const appsScriptUrl = appsScriptUrlInput.value.trim();
+      const driveFolderId = driveFolderIdInput.value.trim();
+      const sheetName = sheetNameInput.value.trim() || "Sheet1";
+      const remoteLinks = parseLinks(driveLinks.value);
 
       if (!apiKey) {
-        setStatus("OpenAI API key required hai.", "error");
+        showNotice("OpenAI API key required hai.", "error");
         return;
       }
 
-      if (!selectedFiles.length && !urls.length) {
-        setStatus("Kam se kam ek image file ya public link dijiye.", "error");
+      if (!appsScriptUrl) {
+        showNotice("Google Apps Script Web App URL required hai.", "error");
         return;
       }
 
-      clearStatus();
-      extractedRows = [];
-      refreshCounts();
+      if (!driveFolderId) {
+        showNotice("Drive Folder ID required hai.", "error");
+        return;
+      }
+
+      if (!selectedFiles.length && !remoteLinks.length) {
+        showNotice("Kam se kam ek card image ya public image link dijiye.", "error");
+        return;
+      }
+
+      clearNotice();
       setPhase("processing");
       extractBtn.disabled = true;
+      refreshBtn.disabled = true;
       clearBtn.disabled = true;
-      renderWorkingState();
+
+      localCards = [];
+      renderWorkspace();
 
       const localItems = await Promise.all(
-        selectedFiles.map(async (file, index) => ({
+        selectedFiles.map(async (file) => ({
           kind: "file",
-          label: file.name,
+          fileName: file.name,
           preview: URL.createObjectURL(file),
           imageUrl: await fileToDataUrl(file),
-          fileName: file.name,
-          sourceIndex: index + 1
+          mimeType: file.type || "image/jpeg"
         }))
       );
 
-      const remoteItems = urls.map((url, index) => ({
+      const remoteItems = remoteLinks.map((url, index) => ({
         kind: "url",
-        label: simplifyUrl(url),
+        fileName: `remote-card-${index + 1}.jpg`,
         preview: url,
         imageUrl: url,
-        fileName: `remote-link-${index + 1}`,
-        sourceIndex: localItems.length + index + 1
+        mimeType: "image/jpeg"
       }));
 
-      const allItems = [...localItems, ...remoteItems];
-      let successCount = 0;
+      const items = [...localItems, ...remoteItems];
+      let savedCount = 0;
 
-      for (const item of allItems) {
-        setStatus(`Extracting ${item.label}...`);
+      for (const item of items) {
         try {
-          const row = await extractCardData({ apiKey, model, item });
-          const normalizedRow = {
-            source: item.label,
+          showNotice(`Extracting and saving ${item.fileName}...`);
+          const extracted = await extractCardData(apiKey, modelSelect.value, item.imageUrl);
+          const saveResult = await saveCardAndRow({
+            appsScriptUrl,
+            driveFolderId,
+            sheetName,
+            item,
+            extracted
+          });
+
+          const row = toSheetRow({
+            source_file: item.fileName,
+            drive_file_url: saveResult.drive_file_url || "",
+            ...extracted
+          });
+
+          rowPreviewBox.textContent = JSON.stringify(row, null, 2);
+
+          localCards.push({
+            label: item.fileName,
             preview: item.preview,
-            ...normalizeRow(row)
-          };
-          extractedRows.push(normalizedRow);
-          updateCurrentResponseBox(normalizedRow);
-          await saveToIntegrations(item, normalizedRow);
-          successCount += 1;
-          refreshCounts();
-          renderResults();
+            subtitle: extracted.company || extracted.designation || "Saved to Drive",
+            driveUrl: saveResult.drive_file_url || ""
+          });
+
+          savedCount += 1;
+          renderWorkspace();
         } catch (error) {
-          const failedRow = {
-            source: item.label,
+          localCards.push({
+            label: item.fileName,
             preview: item.preview,
-            full_name: "",
-            designation: "",
-            company: "",
-            department: "",
-            mobile: "",
-            phones: [],
-            fax: "",
-            emails: [],
-            website: "",
-            address: "",
-            city: "",
-            pin_code: "",
-            country: "",
-            notes: "",
-            confidence: "",
-            raw_summary: "",
-            error: error.message || "Extraction failed"
-          };
-          extractedRows.push(failedRow);
-          updateCurrentResponseBox(failedRow);
-          refreshCounts();
-          renderResults();
+            subtitle: error.message || "Save failed",
+            driveUrl: ""
+          });
+          renderWorkspace();
         }
       }
 
+      await refreshSheetRows();
       setPhase("done");
-      setStatus(`Completed. ${successCount} of ${allItems.length} cards processed.`);
+      showNotice(`Completed. ${savedCount} cards Drive + Google Sheet me save hue.`);
       extractBtn.disabled = false;
+      refreshBtn.disabled = false;
       clearBtn.disabled = false;
     }
 
-    async function extractCardData({ apiKey, model, item }) {
+    async function refreshSheetRows() {
+      const appsScriptUrl = appsScriptUrlInput.value.trim();
+      const sheetName = sheetNameInput.value.trim() || "Sheet1";
+
+      if (!appsScriptUrl) {
+        renderWorkspace();
+        return;
+      }
+
+      setPhase("loading sheet");
+      try {
+        const url = new URL(appsScriptUrl);
+        url.searchParams.set("action", "list_rows");
+        url.searchParams.set("sheet_name", sheetName);
+        const response = await fetch(url.toString(), { method: "GET" });
+        if (!response.ok) {
+          throw new Error(`Sheet fetch failed: ${response.status}`);
+        }
+        const data = await response.json();
+        sheetRows = Array.isArray(data.rows) ? data.rows : [];
+        updateStats();
+        renderWorkspace();
+        setPhase("idle");
+      } catch (error) {
+        showNotice(error.message || "Google Sheet load failed.", "error");
+        setPhase("idle");
+      }
+    }
+
+    async function saveCardAndRow({ appsScriptUrl, driveFolderId, sheetName, item, extracted }) {
+      const response = await fetch(appsScriptUrl, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          action: "save_card_and_row",
+          drive_folder_id: driveFolderId,
+          sheet_name: sheetName,
+          file_name: item.fileName,
+          file_mime_type: item.mimeType,
+          image_data_url: item.kind === "file" ? item.imageUrl : "",
+          image_url: item.kind === "url" ? item.imageUrl : "",
+          row: toSheetRow({
+            source_file: item.fileName,
+            drive_file_url: "",
+            ...extracted
+          })
+        })
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`Webhook error ${response.status}: ${text}`);
+      }
+
+      return response.json();
+    }
+
+    async function extractCardData(apiKey, model, imageUrl) {
       const prompt = [
-        "You are extracting structured contact information from a business card image.",
-        "The image may be rotated sideways or upside down. You must mentally rotate it to the correct reading orientation before extracting text.",
-        "If a person's designation appears anywhere on the card, extract it.",
-        "If labels like M, Mobile, Cell, D, Direct, T, Tel, Telephone, O, Office, Fax, E, Email, Web, Website appear, use them correctly.",
-        "If there are multiple phone numbers, put the primary mobile number in mobile, office/direct numbers in phones array, and fax separately.",
-        "Do not say that data is not visible unless it is genuinely unreadable after mentally rotating the card.",
-        "Return JSON only.",
-        "If a field is not present, return an empty string or empty array.",
-        "Do not guess beyond what is visible.",
-        "Schema:",
-        "{",
-        '  "full_name": "",',
-        '  "designation": "",',
-        '  "company": "",',
-        '  "department": "",',
-        '  "mobile": "",',
-        '  "phones": [],',
-        '  "fax": "",',
-        '  "emails": [],',
-        '  "website": "",',
-        '  "address": "",',
-        '  "city": "",',
-        '  "pin_code": "",',
-        '  "country": "",',
-        '  "notes": "",',
-        '  "confidence": "high|medium|low",',
-        '  "raw_summary": ""',
-        "}"
+        "Extract structured contact details from this business card image.",
+        "The card may be rotated sideways or upside down. Mentally rotate it correctly before reading.",
+        "Use visible labels like M, Mobile, Cell, D, Direct, T, Tel, O, Office, Fax, E, Email, Web, Website correctly.",
+        "Return JSON only. If a field is missing, keep it blank.",
+        "Do not add explanations outside JSON."
       ].join("\n");
 
       const response = await fetch("https://api.openai.com/v1/responses", {
@@ -823,11 +891,7 @@
               role: "user",
               content: [
                 { type: "input_text", text: prompt },
-                {
-                  type: "input_image",
-                  image_url: item.imageUrl,
-                  detail: "high"
-                }
+                { type: "input_image", image_url: imageUrl, detail: "high" }
               ]
             }
           ],
@@ -845,22 +909,16 @@
                   company: { type: "string" },
                   department: { type: "string" },
                   mobile: { type: "string" },
-                  phones: {
-                    type: "array",
-                    items: { type: "string" }
-                  },
+                  phones: { type: "array", items: { type: "string" } },
                   fax: { type: "string" },
-                  emails: {
-                    type: "array",
-                    items: { type: "string" }
-                  },
+                  emails: { type: "array", items: { type: "string" } },
                   website: { type: "string" },
                   address: { type: "string" },
                   city: { type: "string" },
                   pin_code: { type: "string" },
                   country: { type: "string" },
-                  notes: { type: "string" },
                   confidence: { type: "string" },
+                  notes: { type: "string" },
                   raw_summary: { type: "string" }
                 },
                 required: [
@@ -877,8 +935,8 @@
                   "city",
                   "pin_code",
                   "country",
-                  "notes",
                   "confidence",
+                  "notes",
                   "raw_summary"
                 ]
               }
@@ -889,19 +947,19 @@
 
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(`API error ${response.status}: ${errorText}`);
+        throw new Error(`OpenAI error ${response.status}: ${errorText}`);
       }
 
       const data = await response.json();
-      const outputText = extractOutputText(data);
-      if (!outputText) {
+      const text = extractOutputText(data);
+      if (!text) {
         throw new Error("No structured JSON received from OpenAI.");
       }
 
-      return JSON.parse(cleanJsonText(outputText));
+      return normalizeExtracted(JSON.parse(cleanJsonText(text)));
     }
 
-    function normalizeRow(row) {
+    function normalizeExtracted(row) {
       return {
         full_name: valueOrEmpty(row.full_name),
         designation: valueOrEmpty(row.designation),
@@ -916,24 +974,62 @@
         city: valueOrEmpty(row.city),
         pin_code: valueOrEmpty(row.pin_code),
         country: valueOrEmpty(row.country),
-        notes: valueOrEmpty(row.notes),
         confidence: valueOrEmpty(row.confidence),
-        raw_summary: valueOrEmpty(row.raw_summary),
-        error: valueOrEmpty(row.error)
+        notes: valueOrEmpty(row.notes),
+        raw_summary: valueOrEmpty(row.raw_summary)
       };
+    }
+
+    function toSheetRow(row) {
+      return {
+        created_at: new Date().toISOString(),
+        source_file: row.source_file || "",
+        drive_file_url: row.drive_file_url || "",
+        full_name: row.full_name || "",
+        designation: row.designation || "",
+        company: row.company || "",
+        department: row.department || "",
+        mobile: row.mobile || "",
+        office_phones: Array.isArray(row.phones) ? row.phones.join(" | ") : row.office_phones || "",
+        fax: row.fax || "",
+        emails: Array.isArray(row.emails) ? row.emails.join(" | ") : row.emails || "",
+        website: row.website || "",
+        address: row.address || "",
+        city: row.city || "",
+        pin_code: row.pin_code || "",
+        country: row.country || "",
+        confidence: row.confidence || "",
+        notes: row.notes || "",
+        raw_summary: row.raw_summary || ""
+      };
+    }
+
+    function extractOutputText(data) {
+      if (typeof data.output_text === "string" && data.output_text.trim()) {
+        return data.output_text.trim();
+      }
+      const output = Array.isArray(data.output) ? data.output : [];
+      for (const item of output) {
+        const content = Array.isArray(item.content) ? item.content : [];
+        for (const part of content) {
+          if (typeof part.text === "string" && part.text.trim()) {
+            return part.text.trim();
+          }
+        }
+      }
+      return "";
+    }
+
+    function cleanJsonText(text) {
+      const trimmed = text.trim();
+      if (trimmed.startsWith("```")) {
+        return trimmed.replace(/^```(?:json)?/i, "").replace(/```$/i, "").trim();
+      }
+      return trimmed;
     }
 
     function valueOrEmpty(value) {
       return typeof value === "string" ? value.trim() : "";
-    }
-
-    function simplifyUrl(url) {
-      try {
-        const parsed = new URL(url);
-        return parsed.hostname + parsed.pathname;
-      } catch {
-        return url;
-      }
     }
 
     function fileToDataUrl(file) {
@@ -945,173 +1041,62 @@
       });
     }
 
-    function extractOutputText(data) {
-      if (typeof data.output_text === "string" && data.output_text.trim()) {
-        return data.output_text.trim();
-      }
-
-      const output = Array.isArray(data.output) ? data.output : [];
-      for (const item of output) {
-        const content = Array.isArray(item.content) ? item.content : [];
-        for (const part of content) {
-          if (typeof part.text === "string" && part.text.trim()) {
-            return part.text.trim();
-          }
-        }
-      }
-
-      return "";
-    }
-
-    function cleanJsonText(text) {
-      const trimmed = text.trim();
-      if (trimmed.startsWith("```")) {
-        return trimmed.replace(/^```(?:json)?/i, "").replace(/```$/, "").trim();
-      }
-      return trimmed;
-    }
-
-    function clearAll() {
+    function clearSelection() {
       selectedFiles = [];
-      extractedRows = [];
+      localCards = [];
       fileInput.value = "";
       driveLinks.value = "";
-      clearStatus();
+      updateStats();
+      clearNotice();
       setPhase("idle");
-      refreshCounts();
-      renderIdlePreview();
+      renderWorkspace();
     }
 
-    async function saveToIntegrations(item, row) {
-      const driveWebhook = driveWebhookInput.value.trim();
-      const sheetWebhook = sheetWebhookInput.value.trim();
+    function renderWorkspace() {
+      updateStats();
 
-      if (driveWebhook) {
-        await postJson(driveWebhook, {
-          type: "drive_upload_request",
-          source_name: item.label,
-          image_data_url: item.kind === "file" ? item.imageUrl : "",
-          image_url: item.kind === "url" ? item.imageUrl : "",
-          extracted_row: row
-        });
-      }
-
-      if (sheetWebhook) {
-        await postJson(sheetWebhook, {
-          type: "sheet_row_request",
-          row
-        });
-      }
-    }
-
-    async function postJson(url, payload) {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-      });
-
-      if (!response.ok) {
-        const text = await response.text();
-        throw new Error(`Webhook error ${response.status}: ${text}`);
-      }
-    }
-
-    function renderWorkingState() {
-      resultsArea.innerHTML = '<div class="empty">Processing cards... table yahin update hoti rahegi.</div>';
-    }
-
-    function renderIdlePreview() {
-      refreshCounts();
-      const urls = parseLinks(driveLinks.value);
-      if (!selectedFiles.length && !urls.length) {
-        resultsArea.innerHTML = `
-          <div class="empty">
-            Upload cards and click <strong>Extract Data</strong>. Extracted contacts yahan structured table me dikhengi.
-          </div>
-        `;
-        return;
-      }
-
-      const previewFiles = selectedFiles.map((file) => ({
-        label: file.name,
-        preview: URL.createObjectURL(file),
-        subtitle: `${Math.round(file.size / 1024)} KB`
-      }));
-
-      const previewUrls = urls.map((url) => ({
-        label: simplifyUrl(url),
-        preview: url,
-        subtitle: "Remote image link"
-      }));
-
-      renderPreviewAndTable([...previewFiles, ...previewUrls], []);
-    }
-
-    function renderResults() {
-      renderPreviewAndTable(
-        extractedRows.map((row) => ({
-          label: row.source,
-          preview: row.preview,
-          subtitle: row.company || row.designation || row.error || "Awaiting fields"
-        })),
-        extractedRows
-      );
-    }
-
-    function updateCurrentResponseBox(row) {
-      currentResponseBox.textContent = JSON.stringify(toSheetRow(row), null, 2);
-    }
-
-    function toSheetRow(row) {
-      return {
-        source: row.source || "",
-        full_name: row.full_name || "",
-        designation: row.designation || "",
-        company: row.company || "",
-        department: row.department || "",
-        mobile: row.mobile || "",
-        office_phones: (row.phones || []).join(" | "),
-        fax: row.fax || "",
-        emails: (row.emails || []).join(" | "),
-        website: row.website || "",
-        address: row.address || "",
-        city: row.city || "",
-        pin_code: row.pin_code || "",
-        country: row.country || "",
-        confidence: row.confidence || "",
-        notes: row.error || row.notes || "",
-        raw_summary: row.raw_summary || ""
-      };
-    }
-
-    function renderPreviewAndTable(previews, rows) {
-      const previewsHtml = previews.length
-        ? previews.map((item) => `
-            <div class="preview-card">
+      const previewsHtml = localCards.length
+        ? localCards.map((item) => `
+            <div class="card-thumb">
               <img src="${escapeHtml(item.preview)}" alt="${escapeHtml(item.label)}" />
-              <div class="preview-meta">
+              <div class="card-meta">
                 <strong>${escapeHtml(item.label)}</strong>
                 <span>${escapeHtml(item.subtitle || "")}</span>
+                ${item.driveUrl ? `<span><a href="${escapeHtml(item.driveUrl)}" target="_blank" rel="noreferrer">Drive File</a></span>` : ""}
               </div>
             </div>
           `).join("")
-        : '<div class="empty">No previews available.</div>';
+        : '<div class="empty">Local upload previews yahan dikhenge.</div>';
 
-      const tableHtml = rows.length ? buildTable(rows) : `
-        <div class="empty">
-          Files ready hain. Ab <strong>Extract Data</strong> click karke structured result le sakte ho.
-        </div>
-      `;
+      const tableHtml = sheetRows.length
+        ? buildTable(sheetRows)
+        : `
+          <div class="empty">
+            Abhi Google Sheet se koi row load nahi hui. ` +
+            `Apps Script URL aur Sheet name set karke <strong>Refresh Sheet</strong> press karo.
+          </div>
+        `;
 
-      resultsArea.innerHTML = `
-        <div class="results-grid">
+      mainArea.innerHTML = `
+        <div class="result-stack">
           <div class="preview-list">${previewsHtml}</div>
-          ${tableHtml}
+          <div class="table-shell">
+            <div class="table-headbar">
+              <div>
+                <strong>Google Sheet Data Table</strong>
+                <p class="small">Table ka data sheet se aa raha hai, local browser memory se nahi.</p>
+              </div>
+              <button class="secondary" type="button" id="inlineRefreshBtn">Reload Sheet</button>
+            </div>
+            ${tableHtml}
+          </div>
         </div>
       `;
+
+      const inlineRefreshBtn = document.getElementById("inlineRefreshBtn");
+      if (inlineRefreshBtn) {
+        inlineRefreshBtn.addEventListener("click", refreshSheetRows);
+      }
     }
 
     function buildTable(rows) {
@@ -1120,44 +1105,30 @@
           <table>
             <thead>
               <tr>
-                <th>Source</th>
-                <th>Name</th>
-                <th>Designation</th>
-                <th>Company</th>
-                <th>Department</th>
-                <th>Mobile</th>
-                <th>Office Phones</th>
-                <th>Fax</th>
-                <th>Email</th>
-                <th>Website</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>PIN</th>
-                <th>Country</th>
-                <th>Confidence</th>
-                <th>Notes</th>
-                <th>Raw Summary</th>
+                ${SHEET_HEADERS.map((header) => `<th>${escapeHtml(header.replaceAll("_", " "))}</th>`).join("")}
               </tr>
             </thead>
             <tbody>
               ${rows.map((row) => `
                 <tr>
-                  <td class="mono">${escapeHtml(row.source || "")}</td>
+                  <td class="mono">${cell(row.created_at)}</td>
+                  <td class="mono">${cell(row.source_file)}</td>
+                  <td>${row.drive_file_url ? `<a href="${escapeHtml(row.drive_file_url)}" target="_blank" rel="noreferrer">Open</a>` : "-"}</td>
                   <td>${cell(row.full_name)}</td>
                   <td>${cell(row.designation)}</td>
                   <td>${cell(row.company)}</td>
                   <td>${cell(row.department)}</td>
                   <td>${cell(row.mobile)}</td>
-                  <td>${cell((row.phones || []).join("<br>"), true)}</td>
+                  <td>${cell(row.office_phones)}</td>
                   <td>${cell(row.fax)}</td>
-                  <td>${cell((row.emails || []).join("<br>"), true)}</td>
+                  <td>${cell(row.emails)}</td>
                   <td>${cell(row.website)}</td>
                   <td>${cell(row.address)}</td>
                   <td>${cell(row.city)}</td>
                   <td>${cell(row.pin_code)}</td>
                   <td>${cell(row.country)}</td>
-                  <td>${row.confidence ? `<span class="tag">${escapeHtml(row.confidence)}</span>` : "-"}</td>
-                  <td>${cell(row.error || row.notes)}</td>
+                  <td>${confidenceCell(row.confidence)}</td>
+                  <td>${cell(row.notes)}</td>
                   <td>${cell(row.raw_summary)}</td>
                 </tr>
               `).join("")}
@@ -1167,9 +1138,16 @@
       `;
     }
 
-    function cell(value, allowHtml = false) {
+    function confidenceCell(value) {
       if (!value) return "-";
-      return allowHtml ? value : escapeHtml(value);
+      const safe = escapeHtml(value);
+      const cls = safe.toLowerCase() === "low" ? "tag low" : "tag";
+      return `<span class="${cls}">${safe}</span>`;
+    }
+
+    function cell(value) {
+      if (!value) return "-";
+      return escapeHtml(String(value));
     }
 
     function escapeHtml(value) {
@@ -1181,14 +1159,20 @@
         .replaceAll("'", "&#39;");
     }
 
-    refreshCounts();
-    renderIdlePreview();
-    setPhase("idle");
-    sampleResponseBox.textContent = JSON.stringify(SAMPLE_RESPONSE, null, 2);
-    currentResponseBox.textContent = JSON.stringify(toSheetRow(SAMPLE_RESPONSE), null, 2);
+    sampleJsonBox.textContent = JSON.stringify(SAMPLE_RESPONSE, null, 2);
+    rowPreviewBox.textContent = JSON.stringify(toSheetRow({
+      source_file: "sample-card.jpg",
+      drive_file_url: "https://drive.google.com/file/d/sample/view",
+      ...SAMPLE_RESPONSE
+    }), null, 2);
+
     if (DEFAULT_OPENAI_KEY) {
       apiKeyInput.value = DEFAULT_OPENAI_KEY;
     }
+
+    updateStats();
+    renderWorkspace();
+    setPhase("idle");
   </script>
 </body>
 </html>
